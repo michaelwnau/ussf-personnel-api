@@ -1,12 +1,10 @@
-import ExcelJS from "exceljs";
-import { enlistedUserColumns, officerUserColumns } from "./constants.js";
+import { enlistedUserColumns, officerUserColumns } from "./constants.js"
+import { getEnlistedWorksheet, getOfficerWorksheet } from "./helpers.js";
 
 export const resolvers = {
   Query: {
-    getEnlistedUser: async (_, { id }) => {
-      const workbook = new ExcelJS.Workbook();
-      await workbook.xlsx.readFile("./enlinv202304_Yu_v2.xlsx");
-      const worksheet = workbook.getWorksheet("Enlinv 202304");
+    getEnlistedUser: async (_: any, { id }: { id: string }) => {
+      const { worksheet, lastModifiedAt: lastMod } = await getEnlistedWorksheet()
       const foundUserRow = worksheet
         .getColumn(enlistedUserColumns.DOD_ID)
         .values.indexOf(id);
@@ -58,14 +56,13 @@ export const resolvers = {
             .getRow(foundUserRow)
             .getCell(enlistedUserColumns.Middle_Name).value,
           userType: "Enlisted",
+          lastModifiedAt: lastMod.toString(),
         };
       }
       return null;
     },
-    getOfficerUser: async (_, { id }) => {
-      const workbook = new ExcelJS.Workbook();
-      await workbook.xlsx.readFile("./offinv202304_Yu_v2.xlsx");
-      const worksheet = workbook.getWorksheet("Offinv 202304");
+    getOfficerUser: async (_: any, { id }: { id: string }) => {
+      const { worksheet, lastModifiedAt: lastMod } = await getOfficerWorksheet()
       const foundUserRow = worksheet
         .getColumn(officerUserColumns.DOD_ID)
         .values.indexOf(id);
@@ -118,15 +115,14 @@ export const resolvers = {
             .getRow(foundUserRow)
             .getCell(officerUserColumns.Middle_Name).value,
           userType: "Officer",
+          lastModifiedAt: lastMod.toString(),
         };
       }
       return null;
     },
-    getUser: async (_, { id }) => {
+    getUser: async (_: any, { id }: { id: string }) => {
       // First check officer list
-      const officerWorkbook = new ExcelJS.Workbook();
-      await officerWorkbook.xlsx.readFile("./offinv202304_Yu_v2.xlsx");
-      const officerWorksheet = officerWorkbook.getWorksheet("Offinv 202304");
+      const { worksheet: officerWorksheet, lastModifiedAt: officerLastMod } = await getOfficerWorksheet()
       const foundOfficerUserRow = officerWorksheet
         .getColumn(officerUserColumns.DOD_ID)
         .values.indexOf(id);
@@ -185,12 +181,11 @@ export const resolvers = {
             .getRow(foundOfficerUserRow)
             .getCell(officerUserColumns.Middle_Name).value,
           userType: "Officer",
+          lastModifiedAt: officerLastMod.toString(),
         };
       }
       // If not found in officer list, check enlisted list
-      const enlistedWorkbook = new ExcelJS.Workbook();
-      await enlistedWorkbook.xlsx.readFile("./enlinv202304_Yu_v2.xlsx");
-      const enlistedWorksheet = enlistedWorkbook.getWorksheet("Enlinv 202304");
+      const { worksheet: enlistedWorksheet, lastModifiedAt: enlistedLastMod } = await getEnlistedWorksheet()
       const foundEnlistedUserRow = enlistedWorksheet
         .getColumn(enlistedUserColumns.DOD_ID)
         .values.indexOf(id);
@@ -246,6 +241,7 @@ export const resolvers = {
             .getRow(foundEnlistedUserRow)
             .getCell(enlistedUserColumns.Middle_Name).value,
           userType: "Enlisted",
+          lastModifiedAt: enlistedLastMod.toString(),
         };
       }
 

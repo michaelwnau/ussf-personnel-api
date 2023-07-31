@@ -23,6 +23,7 @@ export const typeDefs = gql`
     CMD: String
     org_kind: String
     userType: String
+    lastModifiedAt: String
   }
 
   type Query {

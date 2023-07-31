@@ -1,9 +1,5 @@
-
 node_modules/
-
 spreadsheets/
-
 .envrc.local
-
 .DS_Store
-
+dist/

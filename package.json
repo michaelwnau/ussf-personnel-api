@@ -5,9 +5,27 @@
   "license": "MIT",
   "dependencies": {
     "@apollo/server": "4.7.5",
+    "@aws-sdk/client-s3": "3.32.0",
     "exceljs": "4.3.0",
     "graphql": "16.7.1",
-    "graphql-tag": "2.12.6"
+    "graphql-tag": "2.12.6",
+    "luxon": "3.3.0"
   },
-  "type": "module"
+  "scripts": {
+    "compile": "tsc",
+    "start": "node ./dist/index.js",
+    "dev": "concurrently --kill-others \"yarn compile --watch\" \"nodemon ./dist/index.js\"",
+    "docker:build": "docker build -t ussf-personnel-api .",
+    "docker:start": "docker run --rm -it --env AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY --env S3_BUCKET_NAME=$S3_BUCKET_NAME -p 4000:4000 --volume ./spreadsheets:/app/spreadsheets ussf-personnel-api",
+    "start-docker": "yarn docker:build && yarn docker:start"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@aws-sdk/types": "3.370.0",
+    "@types/luxon": "3.3.1",
+    "@types/node": "20.4.2",
+    "concurrently": "8.2.0",
+    "nodemon": "3.0.1",
+    "typescript": "5.1.6"
+  }
 }
