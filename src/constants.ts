@@ -15,7 +15,7 @@ export const enlistedUserColumns = {
   Last_Name: 32,
   First_name: 33,
   Middle_Name: 34,
-}
+};
 
 export const officerUserColumns = {
   ANB2: 6,
@@ -35,7 +35,7 @@ export const officerUserColumns = {
   Last_Name: 34,
   First_name: 35,
   Middle_Name: 36,
-}
+};
 
-export const officerFilename = 'officer_personnel_data.xlsx'
-export const enlistedFilename = 'enlisted_personnel_data.xlsx'
+export const officerFilename = "officer_personnel_data.xlsx";
+export const enlistedFilename = "enlisted_personnel_data.xlsx";

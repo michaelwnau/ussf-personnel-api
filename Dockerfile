@@ -7,6 +7,7 @@ EXPOSE 4000
 # set to development so we can compile
 ENV NODE_ENV=development
 
+COPY spreadsheets/ app/spreadsheets/
 COPY tsconfig.json package.json yarn.lock app/
 COPY src/ app/src/
 
