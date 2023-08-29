@@ -1,5 +1,5 @@
 # Uses the node base image with the latest LTS version
-FROM node:18.16.0 as builder
+FROM node:18.16.0 AS builder
 # Informs Docker that the container listens on the 
 # specified network ports at runtime
 EXPOSE 4000
@@ -17,6 +17,9 @@ WORKDIR /app
 # Installs dependencies on container
 RUN yarn install --frozen-lockfile
 RUN yarn compile
+
+# Command container will actually run when called
+CMD ["node", "./dist/index.js"]
 
 FROM node:18.16.0
 
