@@ -1,7 +1,15 @@
 import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
+  type Rank {
+    Title: String,
+    Abbreviation: String,
+    Grade: String,
+    GradeId: String
+  }
+
   type User {
+    Rank: Rank
     Grade: String
     DUTYTITLE: String
     AMU: String

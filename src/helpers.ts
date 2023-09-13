@@ -1,7 +1,7 @@
-import ExcelJS from "exceljs";
+import ExcelJS, { CellValue } from "exceljs";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { DateTime } from "luxon";
-import { enlistedFilename, officerFilename } from "./constants.js";
+import { enlistedFilename, enlistedRanks, officerFilename, officerRanks } from "./constants.js";
 import { Stream } from "stream";
 
 const getS3Client = () => {
@@ -50,3 +50,17 @@ export const getEnlistedWorksheet = async () => {
 export const getOfficerWorksheet = async () => {
   return getWorksheet(officerFilename);
 };
+
+export const getEnlistedRankFromGrade = async (grade: CellValue) => {
+  const rank = enlistedRanks.find((rank) => {
+    return rank.GradeId === grade?.toString().trim()
+  })
+  return rank
+}
+
+export const getOfficerRankFromGrade = async (grade: CellValue) => {
+  const rank = officerRanks.find((rank) => {
+    return rank.GradeId === grade?.toString().trim()
+  })
+  return rank
+}

@@ -1,5 +1,5 @@
 import { enlistedUserColumns, officerUserColumns } from "./constants.js";
-import { getEnlistedWorksheet, getOfficerWorksheet } from "./helpers.js";
+import { getEnlistedRankFromGrade, getEnlistedWorksheet, getOfficerRankFromGrade, getOfficerWorksheet } from "./helpers.js";
 
 export const resolvers = {
   Query: {
@@ -20,8 +20,10 @@ export const resolvers = {
       const foundUser = worksheet.getRow(foundUserRow);
 
       if (foundUserRow !== -1 && foundUser) {
+        const grade = foundUser.getCell(enlistedUserColumns.Grade).value
         return {
-          Grade: foundUser.getCell(enlistedUserColumns.Grade).value,
+          Rank: getEnlistedRankFromGrade(grade),
+          Grade: grade,
           DUTYTITLE: foundUser.getCell(enlistedUserColumns.DUTYTITLE).value,
           AMU: foundUser.getCell(enlistedUserColumns.AMU).value,
           DOD_ID: foundUser.getCell(enlistedUserColumns.DOD_ID).value,
@@ -60,13 +62,15 @@ export const resolvers = {
       const foundUser = worksheet.getRow(foundUserRow);
 
       if (foundUserRow !== -1 && foundUser) {
+        const grade = foundUser.getCell(officerUserColumns.Grade).value
         return {
+          Rank: getOfficerRankFromGrade(grade),
+          Grade: grade,
           ANB2: foundUser.getCell(officerUserColumns.ANB2).value,
           DOD_ID: foundUser.getCell(officerUserColumns.DOD_ID).value,
           ATP31: foundUser.getCell(officerUserColumns.ATP31).value,
           CAS3: foundUser.getCell(officerUserColumns.CAS3).value,
           AMF: foundUser.getCell(officerUserColumns.AMF).value,
-          Grade: foundUser.getCell(officerUserColumns.Grade).value,
           DUTYTITLE: foundUser.getCell(officerUserColumns.DUTYTITLE).value,
           MPF: foundUser.getCell(officerUserColumns.MPF).value,
           CMD: foundUser.getCell(officerUserColumns.CMD).value,
@@ -102,13 +106,15 @@ export const resolvers = {
       const foundOfficerUser = officerWorksheet.getRow(foundOfficerUserRow);
 
       if (foundOfficerUserRow !== -1 && foundOfficerUser) {
+        const grade = foundOfficerUser.getCell(officerUserColumns.Grade).value
         return {
+          Rank: getOfficerRankFromGrade(grade),
+          Grade: grade,
           ANB2: foundOfficerUser.getCell(officerUserColumns.ANB2).value,
           DOD_ID: foundOfficerUser.getCell(officerUserColumns.DOD_ID).value,
           ATP31: foundOfficerUser.getCell(officerUserColumns.ATP31).value,
           CAS3: foundOfficerUser.getCell(officerUserColumns.CAS3).value,
           AMF: foundOfficerUser.getCell(officerUserColumns.AMF).value,
-          Grade: foundOfficerUser.getCell(officerUserColumns.Grade).value,
           DUTYTITLE: foundOfficerUser.getCell(officerUserColumns.DUTYTITLE)
             .value,
           MPF: foundOfficerUser.getCell(officerUserColumns.MPF).value,
@@ -145,8 +151,10 @@ export const resolvers = {
       const foundEnlistedUser = enlistedWorksheet.getRow(foundEnlistedUserRow);
 
       if (foundEnlistedUserRow !== -1 && foundEnlistedUser) {
+        const grade = foundEnlistedUser.getCell(enlistedUserColumns.Grade).value
         return {
-          Grade: foundEnlistedUser.getCell(enlistedUserColumns.Grade).value,
+          Rank: getEnlistedRankFromGrade(grade),
+          Grade: grade,
           DUTYTITLE: foundEnlistedUser.getCell(enlistedUserColumns.DUTYTITLE)
             .value,
           AMU: foundEnlistedUser.getCell(enlistedUserColumns.AMU).value,
