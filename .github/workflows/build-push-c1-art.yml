@@ -4,7 +4,10 @@ on:
   release:
     types: [published]
   push:
-    # branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md**'
+    branches: [main]
   workflow_dispatch:
 
 jobs:
