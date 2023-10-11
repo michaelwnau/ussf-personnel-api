@@ -5,7 +5,13 @@ import { enlistedFilename, enlistedRanks, officerFilename, officerRanks } from "
 import { Stream } from "stream";
 
 const getS3Client = () => {
-  return new S3Client({ region: process.env.AWS_DEFAULT_REGION });
+  return new S3Client({
+    region: process.env.S3_REGION,
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+    }
+  });
 };
 
 const getWorksheet = async (filename: string) => {
