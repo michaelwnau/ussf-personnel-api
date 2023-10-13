@@ -2,9 +2,9 @@ import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
   type Rank {
-    Title: String,
-    Abbreviation: String,
-    Grade: String,
+    Title: String
+    Abbreviation: String
+    Grade: String
     GradeId: String
   }
 
@@ -34,15 +34,24 @@ export const typeDefs = gql`
     lastModifiedAt: String
   }
 
+  type GuardianDirectoryUser {
+    DOD_ID: String
+    First_name: String
+    Middle_Name: String
+    Last_Name: String
+    Email: String
+    Rank: Rank
+    Duty: String
+    BaseLoc: String
+    MajCom: String
+    OrgType: String
+    OrgKind: String
+  }
+
   type Query {
     getEnlistedUser(id: String!): User
-  }
-
-  type Query {
     getOfficerUser(id: String!): User
-  }
-
-  type Query {
     getUser(id: String!): User
+    getGuardianDirectory: [GuardianDirectoryUser]
   }
 `;

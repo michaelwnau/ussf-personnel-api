@@ -1,5 +1,10 @@
 import { enlistedUserColumns, officerUserColumns } from "./constants.js";
-import { getEnlistedRankFromGrade, getEnlistedWorksheet, getOfficerRankFromGrade, getOfficerWorksheet } from "./helpers.js";
+import {
+  getEnlistedRankFromGrade,
+  getEnlistedWorksheet,
+  getOfficerRankFromGrade,
+  getOfficerWorksheet,
+} from "./helpers.js";
 
 export const resolvers = {
   Query: {
@@ -20,7 +25,7 @@ export const resolvers = {
       const foundUser = worksheet.getRow(foundUserRow);
 
       if (foundUserRow !== -1 && foundUser) {
-        const grade = foundUser.getCell(enlistedUserColumns.Grade).value
+        const grade = foundUser.getCell(enlistedUserColumns.Grade).value;
         return {
           Rank: getEnlistedRankFromGrade(grade),
           Grade: grade,
@@ -62,7 +67,7 @@ export const resolvers = {
       const foundUser = worksheet.getRow(foundUserRow);
 
       if (foundUserRow !== -1 && foundUser) {
-        const grade = foundUser.getCell(officerUserColumns.Grade).value
+        const grade = foundUser.getCell(officerUserColumns.Grade).value;
         return {
           Rank: getOfficerRankFromGrade(grade),
           Grade: grade,
@@ -106,7 +111,7 @@ export const resolvers = {
       const foundOfficerUser = officerWorksheet.getRow(foundOfficerUserRow);
 
       if (foundOfficerUserRow !== -1 && foundOfficerUser) {
-        const grade = foundOfficerUser.getCell(officerUserColumns.Grade).value
+        const grade = foundOfficerUser.getCell(officerUserColumns.Grade).value;
         return {
           Rank: getOfficerRankFromGrade(grade),
           Grade: grade,
@@ -151,7 +156,9 @@ export const resolvers = {
       const foundEnlistedUser = enlistedWorksheet.getRow(foundEnlistedUserRow);
 
       if (foundEnlistedUserRow !== -1 && foundEnlistedUser) {
-        const grade = foundEnlistedUser.getCell(enlistedUserColumns.Grade).value
+        const grade = foundEnlistedUser.getCell(
+          enlistedUserColumns.Grade
+        ).value;
         return {
           Rank: getEnlistedRankFromGrade(grade),
           Grade: grade,
@@ -185,6 +192,79 @@ export const resolvers = {
 
       // If not found in either list, return null
       return null;
+    },
+    getGuardianDirectory: async () => {
+      const { worksheet: officerWorksheet } = await getOfficerWorksheet();
+      const { worksheet: enlistedWorksheet } = await getEnlistedWorksheet();
+
+      const officerWorksheetValues = officerWorksheet.getColumn(
+        officerUserColumns.DOD_ID
+      ).values;
+
+      const enlistedWorksheetValues = enlistedWorksheet.getColumn(
+        enlistedUserColumns.DOD_ID
+      ).values;
+
+      const officerGuardianDirectoryUsers = [];
+      const enlistedGuardianDirectoryUsers = [];
+
+      // Initializing at 2 to skip the header row
+      for (let i = 2; i < officerWorksheetValues.length; i++) {
+        const officerUser = officerWorksheet.getRow(i);
+        officerGuardianDirectoryUsers.push({
+          DOD_ID: officerUser.getCell(officerUserColumns.DOD_ID).value,
+          First_name: officerUser.getCell(officerUserColumns.First_name).value,
+          Middle_Name: officerUser.getCell(officerUserColumns.Middle_Name)
+            .value,
+          Last_Name: officerUser.getCell(officerUserColumns.Last_Name).value,
+          Email: officerUser.getCell(officerUserColumns.ATP31).value,
+          Rank: getOfficerRankFromGrade(
+            officerUser.getCell(officerUserColumns.Grade).value
+          ),
+          Duty: officerUser.getCell(officerUserColumns.DUTYTITLE).value,
+          BaseLoc: officerUser.getCell(officerUserColumns.BASE_LOC).value,
+          MajCom: officerUser.getCell(officerUserColumns.MAJCOM).value,
+          OrgType: officerUser.getCell(officerUserColumns.Org_type).value,
+          OrgKind: officerUser.getCell(officerUserColumns.org_kind).value,
+        });
+      }
+
+      // Initializing at 2 to skip the header row
+      for (let i = 2; i < enlistedWorksheetValues.length; i++) {
+        const enlistedUser = enlistedWorksheet.getRow(i);
+        enlistedGuardianDirectoryUsers.push({
+          DOD_ID: enlistedUser.getCell(enlistedUserColumns.DOD_ID).value,
+          First_name: enlistedUser.getCell(enlistedUserColumns.First_name)
+            .value,
+          Middle_Name: enlistedUser.getCell(enlistedUserColumns.Middle_Name)
+            .value,
+          Last_Name: enlistedUser.getCell(enlistedUserColumns.Last_Name).value,
+          Email: enlistedUser.getCell(enlistedUserColumns.ATP31).value,
+          Rank: getEnlistedRankFromGrade(
+            enlistedUser.getCell(enlistedUserColumns.Grade).value
+          ),
+          Duty: enlistedUser.getCell(enlistedUserColumns.DUTYTITLE).value,
+          BaseLoc: enlistedUser.getCell(enlistedUserColumns.BASE_LOC).value,
+          MajCom: enlistedUser.getCell(enlistedUserColumns.MAJCOM).value,
+          OrgType: enlistedUser.getCell(enlistedUserColumns.Org_type).value,
+          OrgKind: enlistedUser.getCell(enlistedUserColumns.org_kind).value,
+        });
+      }
+
+      const sortedArray = [
+        ...officerGuardianDirectoryUsers,
+        ...enlistedGuardianDirectoryUsers,
+      ].sort((a, b) => {
+        if (a.Last_Name! < b.Last_Name!) {
+          return -1;
+        }
+        if (a.Last_Name! > b.Last_Name!) {
+          return 1;
+        }
+        return 0;
+      });
+
+      return sortedArray;
     },
   },
 };
