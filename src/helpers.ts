@@ -70,3 +70,32 @@ export const getOfficerRankFromGrade = async (grade: CellValue) => {
   })
   return rank
 }
+
+/** Convert a string to title case */
+export const titleCase = (value: CellValue) => {
+  const str = value?.toString()
+  if (str) {
+    return titleCaseStr(str)
+  }
+  return ''
+}
+
+export const titleCaseMajCom = (value: CellValue) => {
+  const str = value?.toString()
+  if (str) {
+    const split = str.split('(')
+    const majcom = split[0]
+    return titleCaseStr(majcom) + `(${split[1]}`
+  }
+  return ''
+}
+
+export const titleCaseStr = (str: string) => {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1)
+    })
+    .join(' ')
+}
