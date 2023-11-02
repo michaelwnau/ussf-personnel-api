@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.0.0...1.1.0) (2023-10-31)
+
+
+### Features
+
+* Normalize data between resolvers ([#18](https://github.com/USSF-ORBIT/ussf-personnel-api/issues/18)) ([1e61165](https://github.com/USSF-ORBIT/ussf-personnel-api/commit/1e611658d1be795a11061a7244b244866855f331))
+
 ## 1.0.0 (2023-10-13)
 
 
