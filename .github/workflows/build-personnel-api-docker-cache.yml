@@ -1,0 +1,31 @@
+name: Docker Build and Save Cache for Personnel API here and in other repos
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - 'docs/**'
+      - '**.md**'
+    branches: [main]
+
+jobs:
+  build-and-cache-personnel-api:
+      uses: USSF-ORBIT/ussf-portal/.github/workflows/reusable-docker-cache-personnel-api.yml@main
+
+  trigger-build-and-cache-in-other-repos:
+      runs-on: ubuntu-latest
+      steps:
+        - name: call GH API to trigger workflow in portal client repo
+          run: gh workflow run build-personnel-api-docker-cache.yml -R USSF-ORBIT/ussf-portal-client --ref main
+          env:
+            GH_TOKEN: ${{secrets.PUBLIC_REPO_READ}} 
+
+        - name: call GH API to trigger workflow in personnel api repo
+          run: gh workflow run build-personnel-api-docker-cache.yml -R USSF-ORBIT/ussf-keystone-cms --ref main
+          env:
+            GH_TOKEN: ${{secrets.PUBLIC_REPO_READ}} 
+
+        - name: call GH API to trigger caching workflow in ussf-portal repo
+          run: gh workflow run reusable-docker-cache-personnel-api.yml -R USSF-ORBIT/ussf-portal --ref main
+          env:
+            GH_TOKEN: ${{secrets.PUBLIC_REPO_READ}} 
