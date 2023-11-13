@@ -18,6 +18,9 @@ WORKDIR /app
 RUN yarn install --frozen-lockfile
 RUN yarn compile
 
+ARG BUILD
+ENV BUILD_ID=${BUILD}
+
 # Command container will actually run when called
 CMD ["node", "./dist/index.js"]
 
@@ -32,6 +35,9 @@ COPY --from=builder /app/package.json ./package.json
 
 # Changes working directory to the new directory just created
 WORKDIR /app
+
+ARG BUILD
+ENV BUILD_ID=${BUILD}
 
 # Command container will actually run when called
 CMD ["./dist/index.js"]
