@@ -21,7 +21,7 @@ jobs:
             GH_TOKEN: ${{secrets.PUBLIC_REPO_READ}} 
 
         - name: call GH API to trigger workflow in personnel api repo
-          run: gh workflow run build-personnel-api-docker-cache.yml -R USSF-ORBIT/ussf-keystone-cms --ref main
+          run: gh workflow run build-personnel-api-docker-cache.yml -R USSF-ORBIT/ussf-portal-cms --ref main
           env:
             GH_TOKEN: ${{secrets.PUBLIC_REPO_READ}} 
 
