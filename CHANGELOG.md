@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.1.0...1.1.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* fix repo name in workflow call ([#25](https://github.com/USSF-ORBIT/ussf-personnel-api/issues/25)) ([7ceabd1](https://github.com/USSF-ORBIT/ussf-personnel-api/commit/7ceabd11aacc78e503d5530aacea227655cbb47c))
+
 ## [1.1.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.0.0...1.1.0) (2023-10-31)
 
 
