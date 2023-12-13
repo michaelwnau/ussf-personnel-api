@@ -21,7 +21,7 @@ const createOfficerUser = (foundUser: Row, lastModifiedAt: DateTime) => {
     Email: email ? email.toLowerCase() : '',
     CAS3: foundUser.getCell(officerUserColumns.CAS3).value,
     AMF: foundUser.getCell(officerUserColumns.AMF).value,
-    DutyTitle: titleCase(foundUser.getCell(officerUserColumns.DUTYTITLE).value),
+    DutyTitle: foundUser.getCell(officerUserColumns.DUTYTITLE).value?.toString().toUpperCase(),
     MPF: foundUser.getCell(officerUserColumns.MPF).value,
     CMD: foundUser.getCell(officerUserColumns.CMD).value,
     MajCom: titleCaseMajCom(foundUser.getCell(officerUserColumns.MAJCOM).value),
@@ -43,7 +43,7 @@ const createEnlistedUser = (foundUser: Row, lastModifiedAt: DateTime) => {
   return {
     Rank: getEnlistedRankFromGrade(grade),
     Grade: grade,
-    DutyTitle: titleCase(foundUser.getCell(enlistedUserColumns.DUTYTITLE).value),
+    DutyTitle: foundUser.getCell(enlistedUserColumns.DUTYTITLE).value?.toString().toUpperCase(),
     AMU: foundUser.getCell(enlistedUserColumns.AMU).value,
     DOD_ID: foundUser.getCell(enlistedUserColumns.DOD_ID).value,
     Email: email ? email.toLowerCase() : '',
