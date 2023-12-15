@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.1.1...1.2.0) (2023-12-14)
+
+
+### Features
+
+* Change DutyTitle column to be all caps ([#31](https://github.com/USSF-ORBIT/ussf-personnel-api/pull/31)) ([1301ac6](https://github.com/USSF-ORBIT/ussf-personnel-api/commit/1301ac643dd05f1176b3fc7a3d2dc1d5eb4b9d08))
+
 ## [1.1.1](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.1.0...1.1.1) (2023-11-28)
 
 
