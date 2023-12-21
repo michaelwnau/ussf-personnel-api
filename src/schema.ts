@@ -39,5 +39,6 @@ export const typeDefs = gql`
     getOfficerUser(id: String!): User
     getUser(id: String!): User
     getGuardianDirectory: [User]
+    searchGuardianDirectory(search: String!): [User]
   }
 `;
