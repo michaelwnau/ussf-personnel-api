@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.2.0...1.3.0) (2023-12-21)
+
+
+### Features
+
+* Add search resolver for Guardian Directory ([#33](https://github.com/USSF-ORBIT/ussf-personnel-api/issues/33)) ([9f1f091](https://github.com/USSF-ORBIT/ussf-personnel-api/commit/9f1f091722705a3ffea7a1c86f475c713c36dc4f))
+
 ## [1.2.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.1.1...1.2.0) (2023-12-14)
 
 
