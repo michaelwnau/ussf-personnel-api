@@ -1,4 +1,4 @@
-import { gql } from "graphql-tag";
+import { gql } from 'graphql-tag'
 
 export const typeDefs = gql`
   type Rank {
@@ -39,6 +39,7 @@ export const typeDefs = gql`
     getOfficerUser(id: String!): User
     getUser(id: String!): User
     getGuardianDirectory: [User]
+    getLastModifiedAt: String
     searchGuardianDirectory(search: String!): [User]
   }
-`;
+`
