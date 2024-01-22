@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.3.0...1.4.0) (2024-01-16)
+
+
+### Features
+
+* Add getLastModifiedAt ([#37](https://github.com/USSF-ORBIT/ussf-personnel-api/issues/37)) ([057b783](https://github.com/USSF-ORBIT/ussf-personnel-api/commit/057b783a0fc9b5c5f9829c279299693c1a47acb3))
+
 ## [1.3.0](https://github.com/USSF-ORBIT/ussf-personnel-api/compare/1.2.0...1.3.0) (2023-12-21)
 
 
